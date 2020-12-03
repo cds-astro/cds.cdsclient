@@ -17,7 +17,7 @@
                 example: find_ucac5.py M1
 
      Other constraints:
-		--"sort" : ...
+		--sort : ...
 		--add= : ...
 		--file= : ...
 		--ipix= : ...
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     __constraints = []
 
 
-    __options = ('help','format=',"sort",'add=','file=','ipix=','no-format')
+    __options = ('help','format=','sort','add=','file=','ipix=','no-format')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
     except:

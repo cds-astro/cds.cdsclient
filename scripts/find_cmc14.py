@@ -17,12 +17,16 @@
                 example: find_cmc14.py M1
 
      Other constraints:
-		--"sort" : ...
+		--sort : ...
 		--add= : ...
 		--file= : ...
+		--CMC14= : ...
+		--Jmag= : ...
+		--Hmag= : ...
+		--Ksmag= : ...
 
 
-     Example: 
+     Example: --CMC14=">10"
 
      Licensed under a BSD license - see LICENSE.txt for details
 
@@ -138,7 +142,7 @@ if __name__ == "__main__":
     __constraints = []
 
 
-    __options = ('help','format=',"sort",'add=','file=')
+    __options = ('help','format=','sort','add=','file=','CMC14=','Jmag=','Hmag=','Ksmag=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
     except:

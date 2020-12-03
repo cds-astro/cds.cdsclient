@@ -17,12 +17,16 @@
                 example: find_gsc.py M1
 
      Other constraints:
-		--"sort" : ...
+		--sort : ...
 		--add= : ...
 		--file= : ...
+		--GSC= : ...
+		--RAJ2000= : ...
+		--DEJ2000= : ...
+		--Pmag= : ...
 
 
-     Example: 
+     Example: --GSC=">10"
 
      Licensed under a BSD license - see LICENSE.txt for details
 
@@ -138,7 +142,7 @@ if __name__ == "__main__":
     __constraints = []
 
 
-    __options = ('help','format=',"sort",'add=','file=')
+    __options = ('help','format=','sort','add=','file=','GSC=','RAJ2000=','DEJ2000=','Pmag=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
     except:

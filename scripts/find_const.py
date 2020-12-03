@@ -17,7 +17,7 @@
                 example: find_const.py M1
 
      Other constraints:
-		--"sort" : ...
+		--sort : ...
 		--add= : ...
 		--file= : ...
 
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     __constraints = []
 
 
-    __options = ('help','format=',"sort",'add=','file=')
+    __options = ('help','format=','sort','add=','file=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
     except:

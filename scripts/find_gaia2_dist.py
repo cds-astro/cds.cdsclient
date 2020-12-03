@@ -17,14 +17,15 @@
                 example: find_gaia2_dist.py M1
 
      Other constraints:
-		--"sort" : ...
+		--sort : ...
 		--add= : ...
 		--file= : ...
+		--Source= : ...
 		--ipix= : ...
 		--no-format : ...
 
 
-     Example: 
+     Example: --Source=">10"
 
 Note: ouput&capabilites are specific to the options
 
@@ -218,7 +219,7 @@ if __name__ == "__main__":
     __constraints = []
 
 
-    __options = ('help','format=',"sort",'add=','file=','ipix=','no-format')
+    __options = ('help','format=','sort','add=','file=','Source=','ipix=','no-format')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
     except:
