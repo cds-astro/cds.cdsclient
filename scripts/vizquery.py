@@ -42,11 +42,9 @@ if int(sys.version[0]) < 3:
     import urllib2 as ulib
 else:
     import urllib.request as ulib
-import urllib
 
-
-DEFAULT_RADIUS=2. # arcsec
-DEFAULT_LIMIT=100
+DEFAULT_RADIUS = 2. # arcsec
+DEFAULT_LIMIT = 100
 DEBUG = True
 VIZIER_URL = "http://vizier.u-strasbg.fr/viz-bin/"
 TAPVIZIER = "http://tapvizier.u-strasbg.fr/TAPVizieR/"

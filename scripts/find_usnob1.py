@@ -51,6 +51,7 @@ else:
     from urllib.parse import quote
 
 NO_FORMAT = "noformat"
+DEBUG = False
 
 class QueryCat():
     def __init__(self):
@@ -131,6 +132,7 @@ class QueryCatVizieR(QueryCat):
 
 
 
+
 if __name__ == "__main__":
 
     __radius = vizquery.DEFAULT_RADIUS
@@ -144,16 +146,20 @@ if __name__ == "__main__":
     __add = None
     __filename = None
     __constraints = []
-
+    __offset = None
 
     __options = ('help','format=','sort','add=','file=','USNO-B1.0=','RAJ2000=','DEJ2000=','B1mag=','R1mag=','B2mag=','R2mag=','Imag=')
     try :
-        __opts, __args = getopt.getopt(sys.argv[1:], 'har:m:f:', __options)
+        __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:
         help("__main__")
         sys.exit(1)
 
     for __o, __a in __opts:
+        if __o == '-v':
+            DEBUG = True
+            continue
+
         if __o in ("-h", "--help"):
             help("__main__")
             sys.exit(1)
@@ -168,7 +174,7 @@ if __name__ == "__main__":
             try:
                 __limit = int(__a)
             except:
-                sys.stderr.write("(error) wrong limit/max format\n")
+                raise Exception("(error) wrong limit/max format")
 
         elif __o == "-a":
             __all = True
@@ -194,6 +200,10 @@ if __name__ == "__main__":
             if __add is None: __add = []
             __add.append(__a)
 
+        elif __o == "--offset":
+            __offset = __a
+            continue
+
         if __o in ("-f", "--file"):
             __filename = __a
 
@@ -210,20 +220,33 @@ if __name__ == "__main__":
         else:
             __position += " "+ __arg
 
-    if __noformat is True or __ipix is not None:
+    if __noformat is True or __ipix is not None or __offset is not None:
         if __sort is True :
             raise Exception("--sort function is not compatible with --ipix/--no-format")
         if __filename is not None:
             raise Exception("--file option is not compatible with --ipix/--no-format")
+
+        if len(__constraints)>0:
+            raise Exception("Constraints "+str(__constraints)+" is not available in this mode (--ipix/--offset/--no-format)")
 
         __querycat = QueryCatClient()
         if __ipix is not None:
             __querycat.set_healpix(__ipix)
         __querycat.noformat=__noformat
 
+        if __offset :
+            s = __offset.split("..")
+            if len(s) != 2: raise Exception("error offset syntax: min..max")
+            try:
+                __querycat.set_offset(int(s[0]), int(s[1]))
+            except:
+                raise Exception("error offset syntax: begin..nb_records")
+
+        if __mime is None or __mime == vizquery.FORMAT_ASCII:
+            __mime = vizquery.FORMAT_TSV
+
     else:
         __querycat = QueryCatVizieR()
-
 
     __querycat.position = __position
     __querycat.radius = __radius
