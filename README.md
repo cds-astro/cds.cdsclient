@@ -19,7 +19,7 @@
 **Using dedicated script: find_...py**
 * query 2mass arround M1: find_2mass.py M1
 * query sdss12 arround '217.488910+36.086880': find_sdss-dr12.py "217.488910+36.086880"
-* query gaia by offset (**allow to get the whole table by parts**) : find_gaia_edr3.py --offset 0..1000 
+* query gaia by offset (**allows to get the whole table by parts**) : find_gaia_edr3.py --offset 0..1000 
 * query 2mass with jamg constraint: find_2mass.py --jmag="<11"
 You can also query with constraints see --help 
 * query sdss using identifier: find_sdss-dr12.py  --objID=1237662225689281592  --mime=tsv
