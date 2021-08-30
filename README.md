@@ -1,13 +1,14 @@
-# CDS Python package to query large catalogues
+## CDS Python package to query large catalogues
 
-**License** : BSD License 2.0
+**License** : BSD License
+
+**Installation ** : 
+python3 setup.py install --user
 
 **vizquery.py** : the vizquery package
               query all VizieR catalogues using ASU parameters
               metadata retrieving: get columns/table information 
 				   and list large tables
-
-**Make.py** : build large tables scripts using vizquery
 
 **Examples** :
 * list big catalogues : vizquery.py -l
@@ -34,3 +35,4 @@ process.query_cat(limit=10)
 data = process.get()
 print (data)
 ```
+
