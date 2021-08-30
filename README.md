@@ -28,7 +28,7 @@ You can also query with constraints see --help
 **API Example**:
 
 ```
-import find_sdss9 as sdss
+import cdsclient.find_sdss9 as sdss
 process = sdss.QueryCatVizieR()
 process.position = "217.091350+35.985222"
 process.radius = 120
