@@ -2,7 +2,7 @@
 
 **License** : BSD License
 
-**Installation ** : 
+**Installation** : 
 python3 setup.py install --user
 
 **vizquery.py** : the vizquery package
