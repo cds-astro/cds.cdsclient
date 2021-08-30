@@ -22,8 +22,10 @@
 		--file= : ...
 		--RA_ICRS= : ...
 		--DE_ICRS= : ...
+		--SDSS12= : ...
 		--objID= : ...
 		--Sp-ID= : ...
+		--ObsDate= : ...
 		--umag= : ...
 		--gmag= : ...
 		--rmag= : ...
@@ -50,12 +52,7 @@ use --no-format to get original precision
 
 import os, sys
 import getopt
-try:
-    sys.path.append(os.path.split(os.path.abspath(sys.argv[0]))[0])
-    import vizquery
-except:
-    sys.stderr.write("(error) needs vizquery.py in PYTHONPATH\n")
-    sys.exit(1)
+import cdsclient.vizquery as vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote
@@ -242,7 +239,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','RA_ICRS=','DE_ICRS=','objID=','Sp-ID=','umag=','gmag=','rmag=','imag=','zmag=','zsp=','zph=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','RA_ICRS=','DE_ICRS=','SDSS12=','objID=','Sp-ID=','ObsDate=','umag=','gmag=','rmag=','imag=','zmag=','zsp=','zph=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:

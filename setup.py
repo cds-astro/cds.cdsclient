@@ -5,7 +5,7 @@ import setuptools
 #with open("README.md", "r") as fh:
 #    long_description = fh.read()
 
-from cdsclient import __version__
+from cdsclient.__init__ import __version__
 version = __version__
 
 setuptools.setup(

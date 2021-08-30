@@ -27,6 +27,8 @@
 		--imag= : ...
 		--MJDi= : ...
 		--Hamag= : ...
+		--rImag= : ...
+		--rUmag= : ...
 		--gmag= : ...
 		--Umag= : ...
 		--ipix= : ...
@@ -48,12 +50,7 @@ use --no-format to get original precision
 
 import os, sys
 import getopt
-try:
-    sys.path.append(os.path.split(os.path.abspath(sys.argv[0]))[0])
-    import vizquery
-except:
-    sys.stderr.write("(error) needs vizquery.py in PYTHONPATH\n")
-    sys.exit(1)
+import cdsclient.vizquery as vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote
@@ -240,7 +237,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','Name=','RAJ2000=','DEJ2000=','SourceID=','imag=','MJDi=','Hamag=','gmag=','Umag=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','Name=','RAJ2000=','DEJ2000=','SourceID=','imag=','MJDi=','Hamag=','rImag=','rUmag=','gmag=','Umag=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:

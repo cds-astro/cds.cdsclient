@@ -8,9 +8,12 @@
      -l: list large catalogues
      -d: debug
      -i: table information (table given by -source)
-     -mime: csv|votable|ascii
+     -mime: tsv|votable|ascii
      -source: table/catalogue name
      --file  : query with a list
+
+     See ASU parameters: 
+     http://vizier.u-strasbg.fr/doc/asu-summary.htx
 
      asu_params : the ASU parameters
         ex: -out.max: max number of records

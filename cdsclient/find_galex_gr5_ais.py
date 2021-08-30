@@ -44,12 +44,7 @@ use --no-format to get original precision
 
 import os, sys
 import getopt
-try:
-    sys.path.append(os.path.split(os.path.abspath(sys.argv[0]))[0])
-    import vizquery
-except:
-    sys.stderr.write("(error) needs vizquery.py in PYTHONPATH\n")
-    sys.exit(1)
+import cdsclient.vizquery as vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote
