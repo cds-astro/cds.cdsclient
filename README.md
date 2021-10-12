@@ -1,5 +1,7 @@
 ## CDS Python package to query large catalogues
 
+**Note**: API import changed in the last version - see example below
+
 **License** : BSD License
 
 **Installation** : 
