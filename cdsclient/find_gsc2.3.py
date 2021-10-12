@@ -37,7 +37,7 @@
 
 import os, sys
 import getopt
-import cdsclient.vizquery as vizquery
+import vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """G.Landais (CDS) 24-mar-2018
-   Query II/246/out
+   Query I/255/out
 
-   find_2mass.py [-h] [-a] [-r radius] [-m max] [constraints] [--format=tsv|votable|ascii] [position]
+   find_gsc1_3.py [-h] [-a] [-r radius] [-m max] [constraints] [--format=tsv|votable|ascii] [position]
             
      -a: display all columns
      -r: radius in arcsec
@@ -14,17 +14,15 @@
      --file  : query with a list
 
      position : ra dec position or target name
-                example: find_2mass.py M1
+                example: find_gsc1_3.py M1
 
      Other constraints:
 		--sort : ...
 		--add= : ...
 		--file= : ...
 		--DEJ2000= : ...
-		--Hmag= : ...
-		--Jmag= : ...
-		--Kmag= : ...
-		--2MASS= : ...
+		--GSC= : ...
+		--Pmag= : ...
 		--RAJ2000= : ...
 
 
@@ -112,7 +110,7 @@ class QueryCatVizieR(QueryCat):
                 params.append("-out.add=_r")
                 params.append("-sort=_r")
 
-        self.__client.query("II/246/out", params=params, filename=filename)
+        self.__client.query("I/255/out", params=params, filename=filename)
 
         if self.format is not None:
             self.__client.format = self.format
@@ -141,7 +139,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','DEJ2000=','Hmag=','Jmag=','Kmag=','2MASS=','RAJ2000=')
+    __options = ('help','format=','sort','add=','file=','DEJ2000=','GSC=','Pmag=','RAJ2000=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:

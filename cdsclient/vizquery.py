@@ -103,6 +103,7 @@ class TAP:
         debug("TAP(GET): " + self.__server + query)
         return Table.read(self.__server+query)
 
+SCHEMA_LARGE_TABLE = "large_tables"
 
 class METAdata:
     """ Cache METAdata
@@ -125,7 +126,7 @@ class METAdata:
             adql = "SELECT column_name, col.table_name, col.unit, datatype, col.description, indexed, std"
             adql+= " FROM TAP_SCHEMA.columns col"
             adql+= " JOIN TAP_SCHEMA.tables tab ON (tab.table_name=col.table_name)"
-            adql+= " WHERE tab.schema_name='vizls'"
+            adql+= " WHERE tab.schema_name='"+SCHEMA_LARGE_TABLE+"'"
             adql+= "   AND tab.table_name like '%/%'"
         else:
             adql = "SELECT column_name, table_name, unit, datatype, description, indexed, std"
@@ -194,7 +195,7 @@ class METAdata:
         adql = "SELECT c.name as data_collection, t.name as table_name, t.explain as description, t.records, t.filename as table_id"
         adql+= " FROM METAtab t join METAdba d on (t.dbaid=d.dbaid)"
         adql+= " join METAcat c on (c.catid=t.catid)"
-        adql+= " WHERE d.login like 'vizls%' and t.name like '%/%'"
+        adql+= " WHERE d.login like '"+SCHEMA_LARGE_TABLE+"%' and t.name like '%/%'"
         if catalogue_name is not None:
             adql += " AND t.name like '{0}/%'".format(catalogue_name)
         table = self.__tap.get_table(adql, FORMAT_VOTABLE)
