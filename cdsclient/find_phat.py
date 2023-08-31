@@ -41,7 +41,7 @@ use --no-format to get original precision
 
 import os, sys
 import getopt
-import vizquery
+import cdsclient.vizquery as vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote

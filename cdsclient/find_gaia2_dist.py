@@ -20,13 +20,12 @@
 		--sort : ...
 		--add= : ...
 		--file= : ...
-		--Source= : ...
 		--ipix= : ...
 		--no-format : ...
 		--offset= : ...
 
 
-     Example: --Source=">10"
+     Example: 
 
 Note: ouput&capabilites are specific to the options
 
@@ -227,7 +226,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','Source=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:
