@@ -9,6 +9,7 @@
      -m: max number of lines in output
      -h: this help
      --format: output (--format=tsv|votable|ascii)
+     --noheader: remove header (not available for all options)
      --sort  : sort by distance (available with position only)
      --add   : column name in output
      --file  : query with a list
@@ -20,6 +21,7 @@
 		--sort : ...
 		--add= : ...
 		--file= : ...
+		--noheader : ...
 		--RA_ICRS= : ...
 		--DE_ICRS= : ...
 		--Source= : ...
@@ -166,6 +168,7 @@ class QueryCatClient(QueryCat):
         self.__offset = None
         self.limit = vizquery.DEFAULT_LIMIT
         self.noformat = False
+        self.noheader = False
 
     def set_healpix(self, ipix):
         self.__ipix  = ipix
@@ -199,6 +202,9 @@ class QueryCatClient(QueryCat):
             self.__url += "&--noformat=true"
             if self.format not in (vizquery.FORMAT_TSV, vizquery.FORMAT_VOTABLE):
                 self.format = vizquery.FORMAT_TSV
+
+        if self.noheader is True:
+            self.__url += "&--noheader=true"
 
         if self.format is None:
             self.__url += "&--format="+vizquery.FORMAT_TSV
@@ -240,6 +246,7 @@ if __name__ == "__main__":
     __limit = None
     __mime = vizquery.FORMAT_ASCII
     __noformat = False
+    __noheader = False
     __ipix = None
     __all = False
     __sort = False
@@ -248,7 +255,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','RA_ICRS=','DE_ICRS=','Source=','RandomI=','Epoch=','Plx=','e_Plx=','RPlx=','pmRA=','pmDE=','Gmag=','BPmag=','RPmag=','RVDR2=','e_RVDR2=','GLON=','GLAT=','RAJ2000=','DEJ2000=','BP-RP=','BP-G=','G-RP=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','noheader','RA_ICRS=','DE_ICRS=','Source=','RandomI=','Epoch=','Plx=','e_Plx=','RPlx=','pmRA=','pmDE=','Gmag=','BPmag=','RPmag=','RVDR2=','e_RVDR2=','GLON=','GLAT=','RAJ2000=','DEJ2000=','BP-RP=','BP-G=','G-RP=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:
@@ -285,6 +292,9 @@ if __name__ == "__main__":
         elif __o == "--no-format":
             __noformat = True
 
+        elif __o == "--noheader":
+            __noheader = True
+
         elif __o == "--ipix":
             __ipix = __a
 
@@ -320,7 +330,7 @@ if __name__ == "__main__":
         else:
             __position += " "+ __arg
 
-    if __noformat is True or __ipix is not None or __offset is not None:
+    if __noformat is True or __ipix is not None or __offset is not None or __noheader:
         if __sort is True :
             raise Exception("--sort function is not compatible with --ipix/--no-format")
         if __filename is not None:
@@ -333,6 +343,7 @@ if __name__ == "__main__":
         if __ipix is not None:
             __querycat.set_healpix(__ipix)
         __querycat.noformat=__noformat
+        __querycat.noheader=__noheader
 
         if __offset :
             s = __offset.split("..")

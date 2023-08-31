@@ -13,7 +13,7 @@
      --file  : query with a list
 
      See ASU parameters: 
-     http://vizier.u-strasbg.fr/doc/asu-summary.htx
+     https://vizier.cds.unistra.fr/doc/asu-summary.htx
 
      asu_params : the ASU parameters
         ex: -out.max: max number of records
@@ -49,8 +49,8 @@ else:
 DEFAULT_RADIUS = 2. # arcsec
 DEFAULT_LIMIT = 100
 DEBUG = True
-VIZIER_URL = "http://vizier.u-strasbg.fr/viz-bin/"
-TAPVIZIER = "http://tapvizier.u-strasbg.fr/TAPVizieR/"
+VIZIER_URL = "https://vizier.cds.unistra.fr/viz-bin/"
+TAPVIZIER = "https://tapvizier.cds.unistra.fr/TAPVizieR/"
 
 
 FORMAT_TSV = "tsv"

@@ -9,6 +9,7 @@
      -m: max number of lines in output
      -h: this help
      --format: output (--format=tsv|votable|ascii)
+     --noheader: remove header (not available for all options)
      --sort  : sort by distance (available with position only)
      --add   : column name in output
      --file  : query with a list
@@ -20,6 +21,7 @@
 		--sort : ...
 		--add= : ...
 		--file= : ...
+		--noheader : ...
 		--RAJ2000= : ...
 		--DEJ2000= : ...
 		--Imag= : ...
@@ -133,6 +135,7 @@ if __name__ == "__main__":
     __limit = None
     __mime = vizquery.FORMAT_ASCII
     __noformat = False
+    __noheader = False
     __ipix = None
     __all = False
     __sort = False
@@ -141,7 +144,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','RAJ2000=','DEJ2000=','Imag=','Jmag=','Kmag=','DENIS=')
+    __options = ('help','format=','sort','add=','file=','noheader','RAJ2000=','DEJ2000=','Imag=','Jmag=','Kmag=','DENIS=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:
@@ -178,6 +181,9 @@ if __name__ == "__main__":
         elif __o == "--no-format":
             __noformat = True
 
+        elif __o == "--noheader":
+            __noheader = True
+
         elif __o == "--ipix":
             __ipix = __a
 
@@ -213,7 +219,7 @@ if __name__ == "__main__":
         else:
             __position += " "+ __arg
 
-    if __noformat is True or __ipix is not None or __offset is not None:
+    if __noformat is True or __ipix is not None or __offset is not None or __noheader:
         if __sort is True :
             raise Exception("--sort function is not compatible with --ipix/--no-format")
         if __filename is not None:
@@ -226,6 +232,7 @@ if __name__ == "__main__":
         if __ipix is not None:
             __querycat.set_healpix(__ipix)
         __querycat.noformat=__noformat
+        __querycat.noheader=__noheader
 
         if __offset :
             s = __offset.split("..")
