@@ -5,7 +5,12 @@
 **License** : BSD License
 
 **Installation** : 
-python3 setup.py install --user
+
+```bash
+git clone https://github.com/cds-astro/cds.cdsclient.git
+cd cds.cdsclient
+pip install .
+```
 
 **vizquery.py** : the vizquery package
               query all VizieR catalogues using ASU parameters
