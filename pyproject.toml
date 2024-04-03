@@ -1,0 +1,30 @@
+[project]
+name="cdsclient"
+authors = [
+    { name="Gilles Landais (CDS)"},
+]
+description = "CDS VizieR client (query large table)"
+readme = "README.md"
+keywords = ["astronomy"]
+requires-python = ">=3.6"
+dependencies = ["astropy>=3.2",
+                "numpy>=1.17.2"
+]
+classifiers=[
+    "Programming Language :: Python :: 3.6",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+dynamic = ["version"]
+
+[project.urls]
+repository = "https://github.com/cds-astro/cds.cdsclient"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "__init__.py"

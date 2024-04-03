@@ -9,7 +9,7 @@
      -m: max number of lines in output
      -h: this help
      --format: output (--format=tsv|votable|ascii)
-     --noheader: remove header (not available for all options)
+   --noheader: remove header (not available for all options)
      --sort  : sort by distance (available with position only)
      --add   : column name in output
      --file  : query with a list
@@ -53,6 +53,7 @@ use --no-format to get original precision
 import os, sys
 import getopt
 import cdsclient.vizquery as vizquery
+#import vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote

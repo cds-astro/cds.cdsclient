@@ -5,7 +5,10 @@
 **License** : BSD License
 
 **Installation** : 
-python3 setup.py install --user
+#python3 setup.py install --user
+```
+pip install .
+```
 
 **vizquery.py** : the vizquery package
               query all VizieR catalogues using ASU parameters

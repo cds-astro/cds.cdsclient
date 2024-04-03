@@ -9,7 +9,7 @@
      -m: max number of lines in output
      -h: this help
      --format: output (--format=tsv|votable|ascii)
-     --noheader: remove header (not available for all options)
+   --noheader: remove header (not available for all options)
      --sort  : sort by distance (available with position only)
      --add   : column name in output
      --file  : query with a list
@@ -36,6 +36,7 @@
 		--zmag= : ...
 		--zsp= : ...
 		--zph= : ...
+		--rpmag= : ...
 		--ipix= : ...
 		--no-format : ...
 		--offset= : ...
@@ -56,6 +57,7 @@ use --no-format to get original precision
 import os, sys
 import getopt
 import cdsclient.vizquery as vizquery
+#import vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote
@@ -247,7 +249,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','noheader','RA_ICRS=','DE_ICRS=','SDSS12=','SDSS-ID=','objID=','Sp-ID=','ObsDate=','umag=','gmag=','rmag=','imag=','zmag=','zsp=','zph=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','noheader','RA_ICRS=','DE_ICRS=','SDSS12=','SDSS-ID=','objID=','Sp-ID=','ObsDate=','umag=','gmag=','rmag=','imag=','zmag=','zsp=','zph=','rpmag=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:

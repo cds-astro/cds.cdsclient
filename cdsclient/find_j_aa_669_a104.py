@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """G.Landais (CDS) 24-mar-2018
-   Query I/297/out
+   Query J/A+A/669/A104/catalog
 
-   find_nomad1.py [-h] [-a] [-r radius] [-m max] [constraints] [--format=tsv|votable|ascii] [position]
-            
+   find_j_aa_669_a104.py [-h] [-a] [-r radius] [-m max] [constraints] [--format=tsv|votable|ascii] [position]
+            [--ipix=order:num] [--no-format] [--offset=begin...nb_occurences]
      -a: display all columns
      -r: radius in arcsec
      -m: max number of lines in output
@@ -15,22 +15,28 @@
      --file  : query with a list
 
      position : ra dec position or target name
-                example: find_nomad1.py M1
+                example: find_j_aa_669_a104.py M1
 
      Other constraints:
 		--sort : ...
 		--add= : ...
 		--file= : ...
 		--noheader : ...
-		--NOMAD1= : ...
-		--USNO-B1= : ...
-		--UCAC2= : ...
-		--Tycho-2= : ...
-		--RAJ2000= : ...
-		--DEJ2000= : ...
+		--DE_ICRS= : ...
+		--RA_ICRS= : ...
+		--GaiaDR3= : ...
+		--ipix= : ...
+		--no-format : ...
+		--offset= : ...
 
 
-     Example: --NOMAD1=">10"
+     Example: --DE_ICRS=">10"
+
+Note: ouput&capabilites are specific to the options
+
+use --no-format to get original precision
+(only available with position or ipix constraint)
+
 
      Licensed under a BSD license - see LICENSE.txt for details
 
@@ -115,7 +121,7 @@ class QueryCatVizieR(QueryCat):
                 params.append("-out.add=_r")
                 params.append("-sort=_r")
 
-        self.__client.query("I/297/out", params=params, filename=filename)
+        self.__client.query("J/A+A/669/A104/catalog", params=params, filename=filename)
 
         if self.format is not None:
             self.__client.format = self.format
@@ -126,6 +132,92 @@ class QueryCatVizieR(QueryCat):
     def print_stdout(self):
         return self.__client.print_stdout()
 
+import re
+
+if int(sys.version[0])<3:
+    import urllib2 as ulib
+else:
+    import urllib.request as ulib
+
+VIZIER_BIG_CAT_URL = "http://axel.u-strasbg.fr/viz-bin/catClient.cgi"
+class QueryCatClient(QueryCat):
+    def __init__(self):
+        """Constructor
+        """
+        QueryCat.__init__(self)
+        self.__url = None
+        self.__ipix = None
+        self.__offset = None
+        self.limit = vizquery.DEFAULT_LIMIT
+        self.noformat = False
+        self.noheader = False
+
+    def set_healpix(self, ipix):
+        self.__ipix  = ipix
+
+    def set_offset(self, begin, end):
+        self.__offset = "{}..{}".format(begin, end)
+
+    def query_cat(self, constraints=None, all=False, limit=vizquery.DEFAULT_LIMIT, columns=None, filename=None):
+        if filename is not None:
+            raise Exception("file upload is not available")
+
+        self.__url = VIZIER_BIG_CAT_URL + "?-source=j_aa_669_a104"
+        self.__url += "&-c.rs=" + str(self.radius)
+
+        if self.position:
+            self.__url += "&-c="+quote(self.position)
+
+        elif self.__ipix is not None:
+            self.__url += "&--ipix="+self.__ipix
+            if self.format not in (vizquery.FORMAT_TSV, vizquery.FORMAT_VOTABLE):
+                self.format = vizquery.FORMAT_TSV
+
+        if self.__offset:
+            self.__url += "&-recno=" + self.__offset
+        elif limit:
+            self.__url += "&-out.max=" + str(limit)
+        else:
+            self.__url += "&-out.max=" + str(self.limit)
+
+        if self.noformat is True:
+            self.__url += "&--noformat=true"
+            if self.format not in (vizquery.FORMAT_TSV, vizquery.FORMAT_VOTABLE):
+                self.format = vizquery.FORMAT_TSV
+
+        if self.noheader is True:
+            self.__url += "&--noheader=true"
+
+        if self.format is None:
+            self.__url += "&--format="+vizquery.FORMAT_TSV
+
+        else:
+            self.__url += "&--format="+self.format
+
+        if columns is not None:
+            if len(columns)>0: self.__url += "&-col="+",".join(columns)
+
+        if constraints is not None:
+            for constraint in constraints:
+                self.__url += '&-filter="{0}{1}"'.format(constraint[0], constraint[1])
+
+
+    def get(self):
+        raise Exception("not available yet")
+
+    def print_stdout(self):
+        if self.__url is None:
+            raise Exception("query needs to be init")
+
+        if DEBUG:
+            sys.stderr.write("(debug) query: {0}\n".format(self.__url))
+
+        request = ulib.Request(self.__url)
+        request.add_header("User-Agent", vizquery.USER_AGENT)
+
+        fd = ulib.urlopen(request)
+        for line in fd:
+            sys.stdout.write(line.decode('utf8'))
 
 
 
@@ -145,7 +237,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','noheader','NOMAD1=','USNO-B1=','UCAC2=','Tycho-2=','RAJ2000=','DEJ2000=')
+    __options = ('help','format=','sort','add=','file=','noheader','DE_ICRS=','RA_ICRS=','GaiaDR3=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:

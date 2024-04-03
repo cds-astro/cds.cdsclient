@@ -9,7 +9,7 @@
      -m: max number of lines in output
      -h: this help
      --format: output (--format=tsv|votable|ascii)
-     --noheader: remove header (not available for all options)
+   --noheader: remove header (not available for all options)
      --sort  : sort by distance (available with position only)
      --add   : column name in output
      --file  : query with a list
@@ -51,6 +51,7 @@
 		--BP-G= : ...
 		--G-RP= : ...
 		--BP-RP= : ...
+		--RandomI= : ...
 		--ipix= : ...
 		--no-format : ...
 		--offset= : ...
@@ -71,6 +72,7 @@ use --no-format to get original precision
 import os, sys
 import getopt
 import cdsclient.vizquery as vizquery
+#import vizquery
 
 if int(sys.version[0])<3:
     from urllib2 import quote
@@ -262,7 +264,7 @@ if __name__ == "__main__":
     __constraints = []
     __offset = None
 
-    __options = ('help','format=','sort','add=','file=','noheader','Plx=','Gmag=','PS1coid=','APASS9coid=','RPlx=','TYC2=','Source=','RV=','GLON=','URAT1=','RAVE5=','RAVE6=','AllWISE=','2MASS=','RA_ICRS=','RPmag=','GSC23=','DEJ2000=','DE_ICRS=','pmRA=','BPmag=','HIP=','APASS9=','GLAT=','RAJ2000=','pmDE=','BP-G=','G-RP=','BP-RP=','ipix=','no-format','offset=')
+    __options = ('help','format=','sort','add=','file=','noheader','Plx=','Gmag=','PS1coid=','APASS9coid=','RPlx=','TYC2=','Source=','RV=','GLON=','URAT1=','RAVE5=','RAVE6=','AllWISE=','2MASS=','RA_ICRS=','RPmag=','GSC23=','DEJ2000=','DE_ICRS=','pmRA=','BPmag=','HIP=','APASS9=','GLAT=','RAJ2000=','pmDE=','BP-G=','G-RP=','BP-RP=','RandomI=','ipix=','no-format','offset=')
     try :
         __opts, __args = getopt.getopt(sys.argv[1:], 'hvar:m:f:', __options)
     except:
