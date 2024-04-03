@@ -5,7 +5,6 @@
 **License** : BSD License
 
 **Installation** : 
-#python3 setup.py install --user
 ```
 git clone https://github.com/cds-astro/cds.cdsclient.git
 cd cds.cdsclient
